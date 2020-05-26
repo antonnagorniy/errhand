@@ -8,5 +8,5 @@ import (
 func main() {
 	err := errors.New("test")
 
-	errhand.HandleSimpleErr(err)
+	errhand.HandleSimpleErr(err, "Error in main: ")
 }

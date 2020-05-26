@@ -2,6 +2,7 @@ package errhand
 
 import "log"
 
-func HandleSimpleErr(err error) {
-	log.Fatalf("Error ocurred: %v\n", err)
+// HandleSimpleErr handles simple errors
+func HandleSimpleErr(err error, message string) {
+	log.Fatalln(message, err)
 }
