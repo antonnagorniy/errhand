@@ -2,10 +2,9 @@ package logger
 
 import (
 	"github.com/sirupsen/logrus"
-	prefixed "github.com/x-cray/logrus-prefixed-formatter"
+	easy "github.com/t-tomalak/logrus-easy-formatter"
 	"log"
 	"os"
-	"sync"
 )
 
 var logger = logrus.New()
@@ -51,19 +50,9 @@ func SetLevel(level string) {
 }
 
 func SetFormatter() {
-	logger.SetFormatter(&prefixed.TextFormatter{
-		ForceColors:      true,
-		DisableColors:    false,
-		ForceFormatting:  true,
-		DisableTimestamp: false,
-		DisableUppercase: false,
-		FullTimestamp:    true,
-		TimestampFormat:  "2020-01-02 15:04:05",
-		DisableSorting:   false,
-		QuoteEmptyFields: false,
-		QuoteCharacter:   "",
-		SpacePadding:     0,
-		Once:             sync.Once{},
+	logger.SetFormatter(&easy.Formatter{
+		TimestampFormat: "2006-01-02 15:04:05",
+		LogFormat:       "[%lvl%]: %time% - %msg%\n",
 	})
 
 }
