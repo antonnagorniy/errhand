@@ -1,4 +1,4 @@
-package handler
+package errhand
 
 import (
 	"github.com/kattaris/errhand/v2/internal/logger"
