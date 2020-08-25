@@ -18,6 +18,7 @@ func (Handler) HandleSimpleErr(err error, message string) {
 func New(sysVarLogPath string, level string) Handler {
 	logger.SetPath(sysVarLogPath)
 	logger.SetLevel(level)
+	logger.SetFormatter()
 	return Handler{}
 }
 
