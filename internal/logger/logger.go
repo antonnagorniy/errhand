@@ -10,15 +10,15 @@ import (
 var logger = logrus.New()
 
 func Info(args ...interface{}) {
-	logger.Info(args...)
+	logger.Infoln(args...)
 }
 
 func Debug(args ...interface{}) {
-	logger.Debug(args...)
+	logger.Debugln(args...)
 }
 
 func Error(args ...interface{}) {
-	logger.Error(args...)
+	logger.Errorln(args...)
 }
 
 func Println(args ...interface{}) {
@@ -52,7 +52,7 @@ func SetLevel(level string) {
 func SetFormatter() {
 	logger.SetFormatter(&easy.Formatter{
 		TimestampFormat: "2006-01-02 15:04:05",
-		LogFormat:       "[%lvl%]: %time% - %msg%\n",
+		LogFormat:       "[%lvl%]: %time% - %msg%",
 	})
 
 }
