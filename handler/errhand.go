@@ -19,3 +19,11 @@ func New(sysVarLogPath string, level string) Handler {
 	logger.SetLevel(level)
 	return Handler{}
 }
+
+func Println(v ...interface{}) {
+	logger.Println(v...)
+}
+
+func Printf(format string, v ...interface{}) {
+	logger.Printf(format, v)
+}

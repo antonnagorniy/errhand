@@ -20,6 +20,14 @@ func Error(args ...interface{}) {
 	logger.Error(args...)
 }
 
+func Println(args ...interface{}) {
+	logger.Println(args...)
+}
+
+func Printf(format string, v ...interface{}) {
+	logger.Printf(format, v...)
+}
+
 func SetPath(sysVarLogPath string) {
 	if value, exists := os.LookupEnv(sysVarLogPath); exists {
 		outFile, err := os.OpenFile(value, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0755)
