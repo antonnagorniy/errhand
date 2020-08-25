@@ -2,7 +2,7 @@ package main
 
 import (
 	"errors"
-	"github.com/kattaris/errhand/v2/internal/handler"
+	"github.com/kattaris/errhand/v2/handler"
 )
 
 var hndl = handler.New("BOT_LOG", "debug")
