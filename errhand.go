@@ -14,16 +14,19 @@ func (Handler) HandleSimpleErr(err error, message string) {
 	}
 }
 
+// Return Handler with log path and level
 func New(sysVarLogPath string, level string) Handler {
 	logger.SetPath(sysVarLogPath)
 	logger.SetLevel(level)
 	return Handler{}
 }
 
+// Print with new line
 func Println(v ...interface{}) {
 	logger.Println(v...)
 }
 
+// Print with format
 func Printf(format string, v ...interface{}) {
 	logger.Printf(format, v...)
 }
