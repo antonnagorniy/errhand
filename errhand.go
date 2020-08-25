@@ -25,5 +25,5 @@ func Println(v ...interface{}) {
 }
 
 func Printf(format string, v ...interface{}) {
-	logger.Printf(format, v)
+	logger.Printf(format, v...)
 }
