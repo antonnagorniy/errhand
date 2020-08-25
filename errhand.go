@@ -22,11 +22,11 @@ func New(sysVarLogPath string, level string) Handler {
 }
 
 // Print with new line
-func Println(v ...interface{}) {
+func (Handler) Println(v ...interface{}) {
 	logger.Println(v...)
 }
 
 // Print with format
-func Printf(format string, v ...interface{}) {
+func (Handler) Printf(format string, v ...interface{}) {
 	logger.Printf(format, v...)
 }
