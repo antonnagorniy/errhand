@@ -2,10 +2,10 @@ package main
 
 import (
 	"errors"
-	"github.com/kattaris/errhand/pkg"
+	"github.com/kattaris/errhand/pkg/errhand"
 )
 
-var hndl = pkg.New("BOT_LOG", "debug")
+var hndl = errhand.New("BOT_LOG", "debug")
 
 func main() {
 	err := errors.New("test")
