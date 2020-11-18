@@ -1,7 +1,7 @@
-package errhand
+package pkg
 
 import (
-	"github.com/kattaris/errhand/v2/internal/logger"
+	"github.com/kattaris/errhand/internal/logger"
 )
 
 type Handler struct {
