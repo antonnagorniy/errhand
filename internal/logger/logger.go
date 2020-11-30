@@ -7,50 +7,54 @@ import (
 	"os"
 )
 
-var logger = logrus.New()
-
-func Info(args ...interface{}) {
-	logger.Infoln(args...)
+type Log struct {
+	logger logrus.Logger
 }
 
-func Debug(args ...interface{}) {
-	logger.Debugln(args...)
+func New() *Log {
+	return &Log{logger: *logrus.New()}
+}
+func (l *Log) Info(args ...interface{}) {
+	l.logger.Infoln(args...)
 }
 
-func Error(args ...interface{}) {
-	logger.Errorln(args...)
+func (l *Log) Debug(args ...interface{}) {
+	l.logger.Debugln(args...)
 }
 
-func Println(args ...interface{}) {
-	logger.Println(args...)
+func (l *Log) Error(args ...interface{}) {
+	l.logger.Errorln(args...)
 }
 
-func Printf(format string, v ...interface{}) {
-	logger.Printf(format, v...)
+func (l *Log) Println(args ...interface{}) {
+	l.logger.Println(args...)
 }
 
-func SetPath(sysVarLogPath string) {
-	if value, exists := os.LookupEnv(sysVarLogPath); exists {
-		outFile, err := os.OpenFile(value, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0755)
-		if err != nil {
-			log.Fatalln(err)
-		}
-		logger.SetOutput(outFile)
+func (l *Log) Printf(format string, v ...interface{}) {
+	l.logger.Printf(format, v...)
+}
+
+// Sets logs path to path from arg. If error to stdout
+func (l *Log) SetPath(logPath string) {
+	outFile, err := os.OpenFile(logPath, os.O_APPEND|os.O_RDWR|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		l.logger.SetOutput(os.Stdout)
+		log.Printf("Can't find path %s. logger set to stdout", logPath)
 	} else {
-		logger.SetOutput(os.Stdout)
+		l.logger.SetOutput(outFile)
 	}
 }
 
-func SetLevel(level string) {
+func (l *Log) SetLevel(level string) {
 	parseLevel, err := logrus.ParseLevel(level)
 	if err != nil {
 		log.Fatalln(err)
 	}
-	logger.SetLevel(parseLevel)
+	l.logger.SetLevel(parseLevel)
 }
 
-func SetFormatter() {
-	logger.SetFormatter(&easy.Formatter{
+func (l *Log) SetFormatter() {
+	l.logger.SetFormatter(&easy.Formatter{
 		TimestampFormat: "2006-01-02 15:04:05",
 		LogFormat:       "[%lvl%]: %time% - %msg%",
 	})

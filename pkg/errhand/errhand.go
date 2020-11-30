@@ -4,30 +4,34 @@ import (
 	"github.com/kattaris/errhand/internal/logger"
 )
 
+var customLog = logger.New()
+
 type Handler struct {
+	log *logger.Log
 }
 
 // HandleSimpleErr handles simple errors
-func (Handler) HandleSimpleErr(err error) {
+func (h *Handler) HandleSimpleErr(err error) {
 	if err != nil {
-		logger.Error(err)
+		h.log.Error(err, "\n")
 	}
 }
 
-// Return Handler with log path and level
-func New(sysVarLogPath string, level string) Handler {
-	logger.SetPath(sysVarLogPath)
-	logger.SetLevel(level)
-	logger.SetFormatter()
-	return Handler{}
+// Return Handler with log path and level.
+func New(logPath string, level string) *Handler {
+	handler := Handler{log: customLog}
+	handler.log.SetPath(logPath)
+	handler.log.SetLevel(level)
+	handler.log.SetFormatter()
+	return &handler
 }
 
 // Print with new line
-func (Handler) Println(v ...interface{}) {
-	logger.Println(v...)
+func (h *Handler) Println(v ...interface{}) {
+	h.log.Println(v...)
 }
 
 // Print with format
-func (Handler) Printf(format string, v ...interface{}) {
-	logger.Printf(format, v...)
+func (h *Handler) Printf(format string, v ...interface{}) {
+	h.log.Printf(format, v...)
 }
