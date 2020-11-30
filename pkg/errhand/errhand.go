@@ -8,9 +8,9 @@ type Handler struct {
 }
 
 // HandleSimpleErr handles simple errors
-func (Handler) HandleSimpleErr(err error, message string) {
+func (Handler) HandleSimpleErr(err error) {
 	if err != nil {
-		logger.Error(message, err)
+		logger.Error(err)
 	}
 }
 

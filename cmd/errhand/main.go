@@ -9,5 +9,5 @@ var hndl = errhand.New("BOT_LOG", "debug")
 
 func main() {
 	err := errors.New("test")
-	hndl.HandleSimpleErr(err, "Got error: ")
+	hndl.HandleSimpleErr(err)
 }
