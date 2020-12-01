@@ -1,37 +1,83 @@
 package errhand
 
 import (
-	"github.com/kattaris/errhand/internal/logger"
+	"github.com/sirupsen/logrus"
+	prefixed "github.com/x-cray/logrus-prefixed-formatter"
+	"os"
+	"sync"
 )
 
-var customLog = logger.New()
-
-type Handler struct {
-	log *logger.Log
+type Errhand struct {
+	Log logrus.Logger
 }
 
 // HandleSimpleErr handles simple errors
-func (h *Handler) HandleSimpleErr(err error) {
+func (e *Errhand) HandleSimpleErr(err error) {
 	if err != nil {
-		h.log.Error(err, "\n")
+		e.Log.Errorln(err)
 	}
 }
 
-// Return Handler with log path and level.
-func New(logPath string, level string) *Handler {
-	handler := Handler{log: customLog}
-	handler.log.SetPath(logPath)
-	handler.log.SetLevel(level)
-	handler.log.SetFormatter()
-	return &handler
+func (e *Errhand) Infoln(v ...interface{}) {
+	e.Log.Infoln(v...)
 }
 
-// Print with new line
-func (h *Handler) Println(v ...interface{}) {
-	h.log.Println(v...)
+func (e *Errhand) Infof(format string, v ...interface{}) {
+	e.Log.Infof(format, v...)
 }
 
-// Print with format
-func (h *Handler) Printf(format string, v ...interface{}) {
-	h.log.Printf(format, v...)
+func (e *Errhand) Errorln(v ...interface{}) {
+	e.Log.Errorln(v...)
+}
+
+func (e *Errhand) Errorf(format string, v ...interface{}) {
+	e.Log.Errorf(format, v...)
+}
+
+func (e *Errhand) Debugln(v ...interface{}) {
+	e.Log.Debugln(v...)
+}
+
+func (e *Errhand) Debugf(format string, v ...interface{}) {
+	e.Log.Debugf(format, v...)
+}
+
+// Set custom output and log level
+func (e *Errhand) CustomLogger(logsPath string, level string) {
+	e.setPath(logsPath)
+	e.setLevel(level)
+	e.Log.SetFormatter(&prefixed.TextFormatter{
+		ForceColors:      false,
+		DisableColors:    true,
+		ForceFormatting:  true,
+		DisableTimestamp: false,
+		DisableUppercase: false,
+		FullTimestamp:    true,
+		TimestampFormat:  "2006-01-02 15:04:05",
+		DisableSorting:   false,
+		QuoteEmptyFields: false,
+		QuoteCharacter:   "",
+		SpacePadding:     0,
+		Once:             sync.Once{},
+	})
+}
+
+// Set custom output
+func (e *Errhand) setPath(logPath string) {
+	outFile, err := os.OpenFile(logPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		e.Log.SetOutput(os.Stdout)
+		e.Log.Printf("Can't find path %s. Log set to stdout", logPath)
+	} else {
+		e.Log.SetOutput(outFile)
+	}
+}
+
+// Set custom log level
+func (e *Errhand) setLevel(level string) {
+	parseLevel, err := logrus.ParseLevel(level)
+	if err != nil {
+		e.Log.Fatalln(err)
+	}
+	e.Log.SetLevel(parseLevel)
 }
