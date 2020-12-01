@@ -8,7 +8,11 @@ import (
 )
 
 type Errhand struct {
-	Log logrus.Logger
+	Log *logrus.Logger
+}
+
+func New() *Errhand {
+	return &Errhand{Log: logrus.New()}
 }
 
 // HandleSimpleErr handles simple errors
@@ -40,6 +44,30 @@ func (e *Errhand) Debugln(v ...interface{}) {
 
 func (e *Errhand) Debugf(format string, v ...interface{}) {
 	e.Log.Debugf(format, v...)
+}
+
+func (e *Errhand) Warnln(v ...interface{}) {
+	e.Log.Warnln(v...)
+}
+
+func (e *Errhand) Warnf(format string, v ...interface{}) {
+	e.Log.Warnf(format, v...)
+}
+
+func (e *Errhand) Fatalln(v ...interface{}) {
+	e.Log.Fatalln(v...)
+}
+
+func (e *Errhand) Fatalf(format string, v ...interface{}) {
+	e.Log.Fatalf(format, v...)
+}
+
+func (e *Errhand) WithError(err error) *logrus.Entry {
+	return e.Log.WithError(err)
+}
+
+func (e *Errhand) WithField(key string, value interface{}) *logrus.Entry {
+	return e.Log.WithField(key, value)
 }
 
 // Set custom output and log level
