@@ -54,7 +54,7 @@ func (e *Errhand) Warnf(format string, v ...interface{}) {
 	e.Log.Warnf(format, v...)
 }
 
-func (e *Errhand) Fataln(v ...interface{}) {
+func (e *Errhand) Fatalln(v ...interface{}) {
 	e.Log.Fatalln(v...)
 }
 
