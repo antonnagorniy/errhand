@@ -46,6 +46,30 @@ func (e *Errhand) Debugf(format string, v ...interface{}) {
 	e.Log.Debugf(format, v...)
 }
 
+func (e *Errhand) Warnln(v ...interface{}) {
+	e.Log.Warnln(v...)
+}
+
+func (e *Errhand) Warnf(format string, v ...interface{}) {
+	e.Log.Warnf(format, v...)
+}
+
+func (e *Errhand) Fataln(v ...interface{}) {
+	e.Log.Fatalln(v...)
+}
+
+func (e *Errhand) Fatalf(format string, v ...interface{}) {
+	e.Log.Fatalf(format, v...)
+}
+
+func (e *Errhand) WithError(err error) *logrus.Entry {
+	return e.Log.WithError(err)
+}
+
+func (e *Errhand) WithField(key string, value interface{}) *logrus.Entry {
+	return e.Log.WithField(key, value)
+}
+
 // Set custom output and log level
 func (e *Errhand) CustomLogger(logsPath string, level string) {
 	e.setPath(logsPath)
