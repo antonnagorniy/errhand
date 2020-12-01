@@ -8,7 +8,11 @@ import (
 )
 
 type Errhand struct {
-	Log logrus.Logger
+	Log *logrus.Logger
+}
+
+func New() *Errhand {
+	return &Errhand{Log: logrus.New()}
 }
 
 // HandleSimpleErr handles simple errors
