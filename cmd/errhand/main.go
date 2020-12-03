@@ -15,9 +15,9 @@ func init() {
 func main() {
 	err := errors.New("test")
 
-	log.HandleError(err)
+	log.HandleError(err, false)
 	log.Infoln("Custom info")
 	log.Debugln("Custom debug")
 	log.Warnln("Custom warn")
-	log.Fatalln("Custom warn")
+	log.Fatalln("Custom fatal")
 }
