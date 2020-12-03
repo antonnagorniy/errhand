@@ -8,7 +8,7 @@ var log = errhand.New()
 
 func main() {
     err := errors.New("test")
-    log.HandleSimpleErr(err)
+    log.HandleError(err, false)
 }
 ```
 You'll get smth like that in stdOut:
@@ -27,7 +27,7 @@ func init() {
 
 func main() {
 	err := errors.New("test")
-	logger.HandleSimpleErr(err)
+	logger.HandleError(err, false)
 	logger.Infoln("Custom info")
 	logger.Debugln("Custom debug")
 	logger.Warnln("Custom warn")
