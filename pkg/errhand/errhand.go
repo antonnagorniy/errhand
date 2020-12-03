@@ -1,7 +1,6 @@
 package errhand
 
 import (
-	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	prefixed "github.com/x-cray/logrus-prefixed-formatter"
 	"os"
@@ -17,19 +16,16 @@ func New() *Errhand {
 }
 
 // HandleError handles simple errors
-func (e *Errhand) HandleError(err error) {
+func (e *Errhand) HandleError(err error, fatal bool) {
 	if err == nil {
 		return
 	}
 
-	cause := errors.Cause(err)
-	switch cause.(type) {
-	case error:
-		e.Log.Errorln(err)
-	default:
-		e.Log.Panicln(err)
+	if fatal {
+		e.Log.Fatalln(err)
 	}
 
+	e.Log.Errorln(err)
 }
 
 func (e *Errhand) Infoln(v ...interface{}) {
