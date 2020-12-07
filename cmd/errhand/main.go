@@ -2,10 +2,10 @@ package main
 
 import (
 	"errors"
-	"github.com/kattaris/errhand/pkg/errhand"
+	errhand2 "github.com/kattaris/errhand"
 )
 
-var log = errhand.New()
+var log = errhand2.New()
 var logsPath = "D:/logs/testLogs.log"
 
 func init() {
