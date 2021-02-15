@@ -4,6 +4,7 @@ import (
 	"github.com/sirupsen/logrus"
 	prefixed "github.com/x-cray/logrus-prefixed-formatter"
 	"os"
+	"path/filepath"
 	"sync"
 )
 
@@ -98,12 +99,12 @@ func (e *Errhand) CustomLogger(logsPath string, level string) {
 
 // Set custom output
 func (e *Errhand) setPath(logPath string) {
-	outFile, err := os.OpenFile(logPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	file, err := e.createLogFile(logPath)
 	if err != nil {
 		e.Log.SetOutput(os.Stdout)
 		e.Log.Printf("Can't find path %s. Log set to stdout", logPath)
 	} else {
-		e.Log.SetOutput(outFile)
+		e.Log.SetOutput(file)
 	}
 }
 
@@ -114,4 +115,25 @@ func (e *Errhand) setLevel(level string) {
 		e.Log.Fatalln(err)
 	}
 	e.Log.SetLevel(parseLevel)
+}
+
+// Create directories if not exists
+func (e *Errhand) createLogFile(path string) (*os.File, error) {
+	dir := filepath.Dir(path)
+
+	if err := os.MkdirAll(dir, 0770); err != nil {
+		return nil, err
+	} else if _, err := os.Stat(path); os.IsNotExist(err) {
+		file, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+		if err != nil {
+			return nil, err
+		}
+		return file, nil
+	} else {
+		file, err := os.OpenFile(path, os.O_RDWR|os.O_APPEND, 0666)
+		if err != nil {
+			return nil, err
+		}
+		return file, nil
+	}
 }
