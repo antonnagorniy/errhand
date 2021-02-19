@@ -3,12 +3,15 @@ package main
 import (
 	"errors"
 	errhand2 "github.com/kattaris/errhand"
+	"os"
 )
 
 var log = errhand2.New()
-var logsPath = "D:/logs/testLogs.log"
+var logsPath string
 
 func init() {
+	logsPath = os.Getenv("TEST_LOGS") + "errhand/log.log"
+	log.Infoln(logsPath)
 	log.CustomLogger(logsPath, "debug")
 }
 
