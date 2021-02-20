@@ -77,6 +77,13 @@ func (e *Errhand) WithField(key string, value interface{}) *logrus.Entry {
 	return e.Log.WithField(key, value)
 }
 
+func (e *Errhand) Println(v ...interface{}) {
+	e.Log.Println(v...)
+}
+func (e *Errhand) Printf(format string, v ...interface{}) {
+	e.Log.Printf(format, v...)
+}
+
 // Set custom output and log level
 func (e *Errhand) CustomLogger(logsPath string, level string) {
 	e.setPath(logsPath)
