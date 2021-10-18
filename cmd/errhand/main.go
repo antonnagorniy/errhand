@@ -2,17 +2,13 @@ package main
 
 import (
 	"errors"
-	errhand2 "github.com/kattaris/errhand"
-	"os"
+	"github.com/kattaris/errhand/pkg"
 )
 
-var log = errhand2.New()
-var logsPath string
+var log *errhand.Errhand
 
 func init() {
-	logsPath = os.Getenv("TEST_LOGS") + "errhand/log.log"
-	log.Infoln(logsPath)
-	log.CustomLogger(logsPath, "debug")
+	log = errhand.GetLogger()
 }
 
 func main() {
