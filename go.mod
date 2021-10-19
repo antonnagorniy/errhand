@@ -1,4 +1,4 @@
-module github.com/kattaris/errhand
+module github.com/kattaris/errhand/v1
 
 go 1.17
 
