@@ -2,27 +2,12 @@
 ## Based on logrus. 
 #### It's just a simple decorator for quick logger config and errors handling.
 
-### Using erorrs handler:
-```
-var log = errhand.New()
-
-func main() {
-    err := errors.New("test")
-    log.HandleError(err, false)
-}
-```
-You'll get smth like that in stdOut:
-```
-time="2020-12-01T15:35:27+03:00" level=error msg=test
-```
-
 ### Custom log and handler parameters:
 ```
-var log = errhand.New()
+var log *errhand.Errhand
 
 func init() {
-	logsPath := "~/logs/testLogs.log"
-	logger.CustomLogger(logsPath, "debug")
+	log = errhand.GetLogger()
 }
 
 func main() {
