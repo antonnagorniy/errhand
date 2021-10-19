@@ -12,7 +12,7 @@ func init() {
 
 func main() {
 	err := errors.New("test")
-	logger.HandleSimpleErr(err)
+	logger.HandleError(err, false)
 	logger.Infoln("Custom info")
 	logger.Debugln("Custom debug")
 	logger.Warnln("Custom warn")
