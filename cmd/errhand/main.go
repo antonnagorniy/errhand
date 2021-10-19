@@ -2,16 +2,19 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"github.com/kattaris/errhand/pkg"
+	"os"
 )
 
-var log *errhand.Errhand
-
 func init() {
-	log = errhand.GetLogger()
+	userName := os.Getenv("USER")
+	logs := fmt.Sprintf("/home/%s/Logs/errhand/log.log", userName)
+	errhand.Init(logs)
 }
 
 func main() {
+	log := errhand.GetLogger()
 	err := errors.New("test")
 
 	log.HandleError(err, false)

@@ -1,7 +1,6 @@
 package errhand
 
 import (
-	"fmt"
 	"github.com/sirupsen/logrus"
 	prefixed "github.com/x-cray/logrus-prefixed-formatter"
 	"io"
@@ -37,15 +36,18 @@ func (hook *writeHook) Levels() []logrus.Level {
 
 var e *logrus.Entry
 
+// Errhand main struct
 type Errhand struct {
 	*logrus.Entry
 }
 
+// GetLogger returns fully initialized logger
 func GetLogger() *Errhand {
 	return &Errhand{e}
 }
 
-func init() {
+// Init initializes logger with custom logs path
+func Init(logdir string) {
 	l := logrus.New()
 	l.SetReportCaller(true)
 	l.Formatter = &prefixed.TextFormatter{
@@ -63,10 +65,7 @@ func init() {
 		Once:             sync.Once{},
 	}
 
-	userName := os.Getenv("USER")
-	logspath := fmt.Sprintf("/home/%s/Logs/errhand/log.log", userName)
-
-	file, err := createLogFile(logspath)
+	file, err := createLogFile(logdir)
 	if err != nil {
 		panic(err)
 	}
