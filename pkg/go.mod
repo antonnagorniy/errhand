@@ -1,5 +1,4 @@
-module github.com/kattaris/errhand/pkg/errhand/v1
-
+module github.com/kattaris/errhand/pkg/errhand
 go 1.17
 
 require (
