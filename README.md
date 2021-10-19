@@ -4,19 +4,21 @@
 
 ### Custom log and handler parameters:
 ```
-var log *errhand.Errhand
-
 func init() {
-	log = errhand.GetLogger()
+	userName := os.Getenv("USER")
+	logs := fmt.Sprintf("/home/%s/Logs/errhand/main.log", userName)
+	errhand.Init(logs)
 }
 
 func main() {
-	err := errors.New("test")
-	logger.HandleError(err, false)
-	logger.Infoln("Custom info")
-	logger.Debugln("Custom debug")
-	logger.Warnln("Custom warn")
-	logger.Fatalln("Custom fatal")
+	log := errhand.GetLogger()
+	err := errors.New("test error")
+
+	log.HandleError(err, false)
+	log.Infoln("Custom info")
+	log.Debugln("Custom debug")
+	log.Warnln("Custom warn")
+	log.Fatalln("Custom fatal")
 }
 ```
 You'll get smth like that in specified log file:

@@ -15,11 +15,11 @@ func init() {
 
 func main() {
 	log := errhand.GetLogger()
-	err := errors.New("test")
+	err := errors.New("test error")
 
 	log.HandleError(err, false)
-	log.Infoln("Custom info")
-	log.Debugln("Custom debug")
-	log.Warnln("Custom warn")
-	log.Fatalln("Custom fatal")
+	log.Infoln(err)
+	log.Debugln(err)
+	log.Warnln(err)
+	log.Fatalln(err)
 }
