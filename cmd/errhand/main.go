@@ -3,7 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
-	"github.com/kattaris/errhand/pkg"
+	"github.com/kattaris/errhand"
 	"os"
 )
 
