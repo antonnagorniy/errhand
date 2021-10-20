@@ -2,6 +2,11 @@
 ## Based on logrus. 
 #### It's just a simple decorator for quick logger config and errors handling.
 
+[![Actions Status](https://github.com/kattaris/errhand/workflows/CI/badge.svg)](https://github.com/kattaris/errhand/actions)
+[![Coverage Status](https://codecov.io/github/kattaris/errhand/coverage.svg?branch=master)](https://codecov.io/gh/kattaris/errhand)
+[![Releases](https://img.shields.io/github/v/release/errhand/errhand.svg?include_prereleases&style=flat-square)](https://github.com/kattaris/errhand/releases)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 ### Custom log and handler parameters:
 ```
 func init() {
